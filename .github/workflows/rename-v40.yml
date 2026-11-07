@@ -1,0 +1,20 @@
+name: Rename v40 file to index.html
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename v40 file to index.html
+        run: |
+          git config user.name "moulaan-tv"
+          git config user.email "moulaan-tv@users.noreply.github.com"
+          git mv xian-shang-si-miao-3d.html index.html
+          git commit -m "v40 更新：渡口凍死修好、看門狗覆蓋渡船/游船/畫舫、心經八段字數核對、NPC 市井生活 11 人"
+          git push
