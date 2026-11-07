@@ -1,0 +1,19 @@
+name: Rename v43 file to index.html
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename temp file to index.html
+        run: |
+          git config user.name "moulaan-tv"
+          git config user.email "moulaan-tv@users.noreply.github.com"
+          git mv xian-shang-si-miao-3d.html index.html
+          ls -lh index.html
+          git status
+          git commit -m "v43 更新：裁縫鋪給娘子買的10件貨、新娘子跟船、新娘子活起來、開始卡三態、動作特寫改名、圖鑑橫排"
+          git push
