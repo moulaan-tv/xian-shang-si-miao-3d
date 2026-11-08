@@ -1,0 +1,20 @@
+name: Rename v53 to index.html
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename temp file to index.html with git mv
+        run: |
+          git config user.name "moulaan-tv"
+          git config user.email "moulaan-tv@users.noreply.github.com"
+          git mv xian-shang-si-miao-3d.html index.html
+          git commit -m "Rename v53 to index.html via git mv"
+          git push
