@@ -1,0 +1,16 @@
+name: tmp-rename
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          git mv xian-shang-si-miao-3d.html index.html
+          git config user.name "moulaan-tv"
+          git config user.email "moulaan-tv@users.noreply.github.com"
+          git commit -m "Rename v85 file to index.html"
+          git push
