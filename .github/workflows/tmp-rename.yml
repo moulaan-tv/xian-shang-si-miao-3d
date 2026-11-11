@@ -1,0 +1,19 @@
+permissions:
+  contents: write
+name: Rename v108 file to index.html
+on:
+  push:
+    paths:
+      - '.github/workflows/tmp-rename.yml'
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename v108 file to index.html
+        run: |
+          git mv xian-shang-si-miao-3d.html index.html
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Rename v108 file to index.html"
+          git push
