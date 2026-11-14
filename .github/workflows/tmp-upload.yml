@@ -19,13 +19,15 @@ jobs:
         run: |
           set -euxo pipefail
           mkdir -p /tmp/dl
+          REL_ID=$(gh api "repos/${GITHUB_REPOSITORY}/releases" --jq '.[] | select(.tag_name=="tmp-0.11-upload") | .id')
+          echo "draft release id: ${REL_ID}"
           if ! gh release download tmp-0.11-upload --pattern 'xian-shang-si-miao-3d.html' --dir /tmp/dl; then
             echo 'gh release download failed; falling back to API by release id'
-            REL_ID=$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/tmp-0.11-upload" --jq '.id')
             ASSET_ID=$(gh api "repos/${GITHUB_REPOSITORY}/releases/${REL_ID}/assets" --jq '.[0].id')
             gh api "repos/${GITHUB_REPOSITORY}/releases/assets/${ASSET_ID}" -H 'Accept: application/octet-stream' > /tmp/dl/xian-shang-si-miao-3d.html
           fi
-          EXPECTED=$(gh api "repos/${GITHUB_REPOSITORY}/releases/tags/tmp-0.11-upload" --jq '.assets[0].size')
+          ls -l /tmp/dl
+          EXPECTED=$(gh api "repos/${GITHUB_REPOSITORY}/releases/${REL_ID}" --jq '.assets[0].size')
           ACTUAL=$(stat -c%s /tmp/dl/xian-shang-si-miao-3d.html)
           echo "expected bytes (API): ${EXPECTED}"
           echo "actual bytes: ${ACTUAL}"
