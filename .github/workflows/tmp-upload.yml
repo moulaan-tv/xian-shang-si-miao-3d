@@ -14,9 +14,12 @@ jobs:
           if gh release download tmp-0.08-upload --pattern "xian-shang-si-miao-3d.html" --dir /tmp/dl; then
             echo "downloaded via gh"
           else
-            echo "gh download failed, trying API"
-            ASSET_URL=$(gh api repos/moulaan-tv/xian-shang-si-miao-3d/releases/tags/tmp-0.08-upload --jq '.assets[0].url')
-            curl -L -H "Authorization: Bearer $GITHUB_TOKEN" -H "Accept: application/octet-stream" -o /tmp/dl/xian-shang-si-miao-3d.html "$ASSET_URL"
+            echo "gh download failed, trying API by release id"
+            REL_ID=$(gh api repos/moulaan-tv/xian-shang-si-miao-3d/releases --jq '.[] | select(.tag_name=="tmp-0.08-upload") | .id')
+            echo "release id: $REL_ID"
+            ASSET_URL=$(gh api "repos/moulaan-tv/xian-shang-si-miao-3d/releases/$REL_ID/assets" --jq '.[0].url')
+            echo "asset url: $ASSET_URL"
+            curl -L -H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/octet-stream" -o /tmp/dl/xian-shang-si-miao-3d.html "$ASSET_URL"
           fi
           ls -l /tmp/dl
           cp /tmp/dl/xian-shang-si-miao-3d.html ./xian-shang-si-miao-3d.html
@@ -26,3 +29,5 @@ jobs:
           git add xian-shang-si-miao-3d.html
           git commit -m "0.08"
           git push
+        env:
+          GH_TOKEN: ${{ github.token }}
