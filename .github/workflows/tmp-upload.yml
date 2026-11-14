@@ -1,0 +1,27 @@
+name: tmp-upload
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download 0.10 game file from draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          git config user.name "moulaan-tv"
+          git config user.email "moulaan-tv@users.noreply.github.com"
+          if ! gh release download tmp-0.10-upload --pattern "xian-shang-si-miao-3d.html" --dir .; then
+            echo "tag download failed, falling back to release id"
+            RID=$(gh api "repos/${{ github.repository }}/releases/tags/tmp-0.10-upload" --jq .id)
+            echo "release id: $RID"
+            ASSET_URL=$(gh api "repos/${{ github.repository }}/releases/$RID/assets" --jq '.[] | select(.name=="xian-shang-si-miao-3d.html") | .url')
+            gh api "$ASSET_URL" -H "Accept: application/octet-stream" > xian-shang-si-miao-3d.html
+          fi
+          ls -l xian-shang-si-miao-3d.html
+          git add xian-shang-si-miao-3d.html
+          git commit -m "0.10"
+          git push
