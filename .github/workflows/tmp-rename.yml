@@ -1,0 +1,30 @@
+name: tmp-rename
+permissions:
+  contents: write
+on:
+  workflow_dispatch:
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename with git mv
+        run: |
+          git config user.name "moulaan-tv"
+          git config user.email "moulaan-tv@users.noreply.github.com"
+          ls -l xian-shang-si-miao-3d.html
+          git mv xian-shang-si-miao-3d.html index.html
+          ls -l index.html
+          git commit -m "Rename 0.14 game file to index.html"
+          git push
+      - name: Verify size with GitHub API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          ASSET_SIZE=$(gh api repos/${{ github.repository }}/releases --jq '.[] | select(.tag_name=="tmp-0.14-upload") | .assets[] | select(.name=="xian-shang-si-miao-3d.html") | .size')
+          echo "asset size: $ASSET_SIZE"
+          COMMITTED_SIZE=$(gh api repos/${{ github.repository }}/contents/index.html --jq '.size')
+          echo "index.html size: $COMMITTED_SIZE"
+          test "$ASSET_SIZE" = "$COMMITTED_SIZE"
+          echo "SIZE MATCH: $COMMITTED_SIZE bytes"
