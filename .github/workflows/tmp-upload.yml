@@ -1,0 +1,32 @@
+permissions:
+  contents: write
+name: tmp-upload
+on:
+  workflow_dispatch:
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download 0.15 file from draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          RID=$(gh api "repos/${{ github.repository }}/releases" --jq '.[] | select(.tag_name == "tmp-0.15-upload") | .id')
+          echo "release id: $RID"
+          test -n "$RID"
+          AID=$(gh api "repos/${{ github.repository }}/releases/$RID/assets" --jq '.[] | select(.name == "xian-shang-si-miao-3d.html") | .id')
+          echo "asset id: $AID"
+          test -n "$AID"
+          gh api "repos/${{ github.repository }}/releases/assets/$AID" -H "Accept: application/octet-stream" > xian-shang-si-miao-3d.html
+          SIZE=$(wc -c < xian-shang-si-miao-3d.html)
+          echo "downloaded size: $SIZE"
+          test "$SIZE" -eq 34179732
+      - name: Commit 0.15 file
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add xian-shang-si-miao-3d.html
+          git commit -m "Add 0.15 game file"
+          git push
