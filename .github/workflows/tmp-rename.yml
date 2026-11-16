@@ -1,0 +1,20 @@
+permissions:
+  contents: write
+name: tmp-rename
+on:
+  workflow_dispatch:
+jobs:
+  rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename 0.15 file to index.html
+        run: |
+          set -euo pipefail
+          ls -l xian-shang-si-miao-3d.html
+          test "$(wc -c < xian-shang-si-miao-3d.html)" = "34179732"
+          git config user.name "moulaan-tv"
+          git config user.email "moulaan-tv@users.noreply.github.com"
+          git mv xian-shang-si-miao-3d.html index.html
+          git commit -m "Rename 0.15 game file to index.html"
+          git push
