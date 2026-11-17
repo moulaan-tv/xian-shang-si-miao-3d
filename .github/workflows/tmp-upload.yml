@@ -1,0 +1,27 @@
+permissions:
+  contents: write
+on:
+  workflow_dispatch:
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download 0.17 file from draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -e
+          RID=$(gh api "repos/${GITHUB_REPOSITORY}/releases" --jq '.[] | select(.tag_name=="tmp-0.17-upload") | .id')
+          echo "release id: $RID"
+          AID=$(gh api "repos/${GITHUB_REPOSITORY}/releases/${RID}/assets" --jq '.[] | select(.name=="xian-shang-si-miao-3d.html") | .id')
+          echo "asset id: $AID"
+          gh api "repos/${GITHUB_REPOSITORY}/releases/assets/${AID}" -H "Accept: application/octet-stream" > xian-shang-si-miao-3d.html
+          ls -l xian-shang-si-miao-3d.html
+      - name: Commit file to repo root
+        run: |
+          git config user.name "moulaan-tv"
+          git config user.email "moulaan-tv@users.noreply.github.com"
+          git add xian-shang-si-miao-3d.html
+          git commit -m "Add 0.17 file"
+          git push
