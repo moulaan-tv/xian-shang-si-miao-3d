@@ -1,0 +1,23 @@
+permissions:
+  contents: write
+name: tmp-rename
+on:
+  workflow_dispatch:
+jobs:
+  tmp-rename:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rename uploaded file to index.html
+        run: |
+          set -eux
+          ls -l xian-shang-si-miao-3d.html
+          test "$(stat -c%s xian-shang-si-miao-3d.html)" = "48537441"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git mv xian-shang-si-miao-3d.html index.html
+          ls -l index.html
+          test "$(stat -c%s index.html)" = "48537441"
+          git commit -m "Rename xian-shang-si-miao-3d.html to index.html v0.29 (48537441 bytes)"
+          git push
+          ls -l index.html
