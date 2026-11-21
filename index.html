@@ -98,6 +98,27 @@
     <style>
       html.tmResume #startCard, html.tmResume #titleArt { display: none !important; }
     </style>
+    <style id="qy-hud-guard">
+      /* 标题屏 HUD 守卫（页头先行版）：打开页面必先见标题屏（v131 定死），body 的
+         tsStart 标记由下方 body 首行小脚本在解析到 HUD 元素之前就打上——本规则
+         随页头样式第一时间生效，整套游戏内 HUD（顶栏 / 位置牌 / 菜单 / 视角 /
+         任务 / 图鉴 / 动作特写 / 修行牌，以及后段脚本才拼出来的玻璃坞各行）
+         从第一眼起就不许露面。旧规矩是等文件后段的大脚本（v71）跑到才加标记、
+         才注入隐藏样式：公链加载慢时那段迟迟没轮到，HUD 就按原始排版裸露在
+         标题屏上，窄屏上居中顶栏还压住位置牌、几排互相重叠（老板亲报截图）。
+         进游戏仍走原路：开始 / 继续钮的 enter() 摘掉 tsStart，本规则即刻失效、
+         HUD 原样恢复；回标题屏是整页重载，标记自动重新打上。名单 = v71 的
+         css71 藏名单 + 它漏掉的坞容器与单颗钮（camBtn / questBtn / atlasBtn /
+         pipToggle / dailyPlate / menuRowA / glassDock3 / baseBar 等）。 */
+      body.tsStart #topBar, body.tsStart #wxPlate, body.tsStart #glassDock, body.tsStart #glassDock2, body.tsStart #glassDock3,
+      body.tsStart #menuRowA, body.tsStart #baseBar, body.tsStart #menuToggle, body.tsStart #goalChip75, body.tsStart #pinQuest18,
+      body.tsStart #locPlate, body.tsStart #menuBtn, body.tsStart #camBtn, body.tsStart #questBtn, body.tsStart #atlasBtn,
+      body.tsStart #pipToggle, body.tsStart #dailyPlate, body.tsStart #bagBtn, body.tsStart #fameChip, body.tsStart #wifeMood,
+      body.tsStart #stamProt, body.tsStart #bgmCtl, body.tsStart #joy, body.tsStart #joyHint, body.tsStart #toast,
+      body.tsStart .bub, body.tsStart .sayBubble, body.tsStart #debtBtn, body.tsStart #debtPanel, body.tsStart #chaseBar,
+      body.tsStart #jailPlate, body.tsStart #swimBar, body.tsStart #sosBtn, body.tsStart #jobCard, body.tsStart #actPip,
+      body.tsStart #exitBtn25, body.tsStart #flarePill26 { display: none !important; }
+    </style>
     <style>
       html, body { margin: 0; padding: 0; height: 100%; overflow: hidden; background: #17110a; }
       body { font-family: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif; color: #f3e9d2; user-select: none; -webkit-user-select: none; touch-action: none; }
@@ -1327,6 +1348,14 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
 </style>
   </head>
   <body>
+    <script>
+      // 标题屏标记先行（配合页头 #qy-hud-guard 守卫）：本脚本是 body 里第一个
+      // 执行的脚本，跑在任何 HUD 元素被解析、绘制之前——先给 body 打上
+      // tsStart，页头守卫样式随即把整套游戏内 HUD 藏好，标题屏从第一眼起
+      // 就只有标题屏自己的东西。后段 v71 进场时会再加一次（同名无副作用），
+      // 点开始 / 继续进游戏时它的 enter() 照旧摘掉标记、HUD 照旧恢复。
+      document.body.classList.add("tsStart");
+    </script>
     <div id="scene"></div>
     <div id="v61Vignette"></div>
 
