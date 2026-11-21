@@ -7728,7 +7728,7 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
         for (var tsi = 0; tsi < 3; tsi++) { var tsm = mesh(box(0.56, 0.05, 0.74), rpTileMat, 1.95, 0.8 + tsi * 0.06, 0.2, sc, false); tsm.rotation.y = tsi * 0.12; }
         var tBucket = mesh(cyl(0.17, 0.13, 0.3, 10), std({ color: 0xa33327, roughness: 0.5 }), 2.3, 0.15, 0.55, sc, false);
         /* 小人 + 手持道具（砖/瓦/斗拱件，跟着剧情拿起放下） */
-        var P = makePerson({ top: 0x46686b, bottom: 0x33383b, sash: 0xa33327, hair: "bun", beads: true, scale: 1.05, build: "normal" });
+        var P = makePerson({ top: 0x497e78, bottom: 0x39424a, sash: 0xa33327, hair: "ponytail", headband: 0xa33327, beads: true, scale: 1.05, build: "normal", eyeGap: 1.02, browAng: 1.15, mouthW: 1.0 }); // 0.30：修缮窗里的「你」同故事舞台——按主角现行造型建（湖青衫 + 高马尾 + 朱红发带），不再是旧绿衣发髻；身高档保留本窗机位惯用的 1.05
         P.g.position.set(1.9, 0, 1.3); sc.add(P.g);
         var brickProp = mesh(box(0.44, 0.24, 0.3), rpBrickMat, 0, 1.0, 0.38, P.g, false); brickProp.visible = false;
         var dgProp = mesh(box(0.5, 0.2, 0.3), M.wood, 0, 1.05, 0.38, P.g, false); dgProp.visible = false;
@@ -8172,7 +8172,7 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
         fx.ringFly = stPropMesh("ring"); fx.ringFly.visible = false; sc.add(fx.ringFly); // 套环故事：飞在空中的环
         fx.ringPrize = stPropMesh("bottle"); fx.ringPrize.scale.setScalar(1.9); fx.ringPrize.position.set(-0.45, 1.14, -0.75); fx.ringPrize.visible = false; sc.add(fx.ringPrize); // 套环故事：柜台上等着被套中的瓶子
         /* 人物：你（P）+ 对方（Q：摊主/师傅/渔夫/厨娘/乐师）+ 第二人（R：歌女） */
-        var P = makePerson({ top: 0x46686b, bottom: 0x33383b, sash: 0xa33327, hair: "bun", beads: true, scale: 1.12, build: "normal" });
+        var P = makePerson({ top: 0x497e78, bottom: 0x39424a, sash: 0xa33327, hair: "ponytail", headband: 0xa33327, beads: true, scale: 1.18, build: "normal", eyeGap: 1.02, browAng: 1.15, mouthW: 1.0 }); // 0.30：建台默认替身直接按主角现行造型建（湖青衫 + 高马尾 + 朱红发带 + 1.18，与主场景 player 本人逐项一致）——原先是旧参数（旧绿衣 + 发髻 + 1.12），换角没赶上时窗里就是旧人
         sc.add(P.g);
         var Q = makePerson({ top: 0x8a6f4d, bottom: 0x54483a, sash: 0x7c271e, hair: "short", scale: 1.1, build: "normal" });
         sc.add(Q.g);
@@ -13934,7 +13934,7 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
         document.getElementById("startConfirm").classList.remove("show");
       });
       document.getElementById("scYes").addEventListener("click", function () {
-        try { localStorage.removeItem(SAVE_KEY); localStorage.removeItem("templeFarm94"); localStorage.removeItem("templeWxUmbrellaV68"); localStorage.removeItem("templeSvStart91"); localStorage.setItem("templeFreshV58", "1"); } catch (e) {} // 0.18：清除要真清——菜园/养殖（templeFarm94）、油纸伞（templeWxUmbrellaV68）、入镇天数锚点（templeSvStart91）一并删，原先只删主档，旧菜园旧天数会跟着进新局
+        try { localStorage.removeItem(SAVE_KEY); localStorage.removeItem("templeFarm94"); localStorage.removeItem("templeWxUmbrellaV68"); localStorage.removeItem("templeSvStart91"); localStorage.removeItem("templeBackupV18"); localStorage.setItem("templeFreshV58", "1"); } catch (e) {} // 0.18：清除要真清——菜园/养殖（templeFarm94）、油纸伞（templeWxUmbrellaV68）、入镇天数锚点（templeSvStart91）一并删，原先只删主档，旧菜园旧天数会跟着进新局
         location.reload(); // 重载后初始化认得标记：跳过读档、全新状态自动进游戏
       });
 
@@ -14101,7 +14101,7 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
          ================================================================ */
       /* ---------- 换装：衣袍 / 帽子 / 佩饰三类，穿在身上主场景与动画窗都看得见 ---------- */
       var OUTFITS = [
-        { id: "plain", name: "青布常服", desc: "日常青衫 · 原来这一身", price: 0, top: 0x46686b, bottom: 0x33383b, sash: 0xa33327, robe: false },
+        { id: "plain", name: "青布常服", desc: "日常青衫 · 原来这一身", price: 0, top: 0x497e78, bottom: 0x39424a, sash: 0xa33327, robe: false }, // 0.30 色值收口：原先还写着 v96 改版前的旧青绿（0x46686b/0x33383b），主角本体 v96 已提亮成湖青——换装表不跟上，动画窗每次开演都按这张表把台上「你」repaint 回旧绿衣（老板四报的病根之一）
         { id: "linen", name: "苎麻短衫", desc: "粗麻透气 · 干活利落", price: 3, top: 0x9a8a6a, bottom: 0x5c5142, sash: 0x6e5636, robe: false },
         { id: "moon", name: "月白长衫", desc: "月白长袍 · 清雅脱俗", price: 5, top: 0xdfe3da, bottom: 0xb9beb2, sash: 0x51707c, robe: true },
         { id: "navy", name: "藏青缎袍", desc: "藏青缎面 · 沉稳体面", price: 7, top: 0x2e4055, bottom: 0x232f3d, sash: 0xc9982f, robe: true },
@@ -28563,7 +28563,7 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
             只是给它在标题屏态一个悬浮位。其余菜单一律不加，画面保持干净。
          ④ 版本号：底部居中一行小字——金线 + 小菱形夹着 GAME_VERSION，
             按参考图那样收尾点缀。只动 tsStart 全屏态，游戏内其它界面不碰。 */
-      var GAME_VERSION = "0.29";
+      var GAME_VERSION = "0.31";
       try { window.GAME_VERSION = GAME_VERSION; } catch (e) {} // v131：版本号挂到 window 上——页尾 v132 菜单脚本在另一个作用域里读不到本处 var，原先只能吃写死的兜底值，版本一升就显示旧号（v131 实测标题屏还写着 v130）；挂出来后它读到的永远是当前版本
       (function v115Title() {
         if (!document.body.classList.contains("tsStart")) return; // 自动进游戏那条路没有标题屏
@@ -28714,7 +28714,7 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
                 return;
               }
               clearTimeout(armT);
-              try { localStorage.removeItem("templeDailySaveV51"); localStorage.removeItem("templeFarm94"); localStorage.removeItem("templeWxUmbrellaV68"); localStorage.removeItem("templeSvStart91"); localStorage.setItem("templeFreshV58", "1"); } catch (e) {} // 0.18：清除要真清（同 scYes 处）
+              try { localStorage.removeItem("templeDailySaveV51"); localStorage.removeItem("templeFarm94"); localStorage.removeItem("templeWxUmbrellaV68"); localStorage.removeItem("templeSvStart91"); localStorage.removeItem("templeBackupV18"); localStorage.setItem("templeFreshV58", "1"); } catch (e) {} // 0.18：清除要真清（同 scYes 处）
               location.reload();
             });
           }
@@ -28795,6 +28795,13 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
           "<p>没有打怪升级的催促，没有排行榜的焦虑。每天的目标就三件：做一件好事、挣几枚功德钱、跟喜欢的人说句话。功德攒够了，就能重修古寺、修缮香炉、把这座小镇一点点变好。</p>" +
           "<p>冬天到了，镇上的人都换上了冬装，毛领、盘扣、棉袄，烤红薯的香气飘满集市口。夜里有萤火灯，竹竿上吊着玻璃瓶，瓶里七只萤火虫一明一暗。</p>" +
           "<p>来吧，推开山门，住进来。</p>" +
+          "<div style=\"border-top:1.5px dashed rgba(138,106,68,0.55);margin:12px 0 2px;padding-top:10px\">" +
+          "<p style=\"margin-bottom:6px\"><b>0.31 版（2026-11-21）</b></p>" +
+          "<p style=\"margin:0 0 5px;padding-left:14px;text-indent:-14px\">- 集市北头边上新开了一间药铺——回春堂：跌打药膏、草药、干净布条、消炎药、止痛药、止血药都齐了，价钱写在牌子上。打架受了伤，买瓶药吃下就回力气（跌打药膏回 20 点，跟鲜果一个口径）。</p>" +
+          "<p style=\"margin:0 0 5px;padding-left:14px;text-indent:-14px\">- 庭院边多了一桩善事：白天去寺里庭院，有时会瞧见一只翅膀受了伤的黑乌鸦，瘫在草丛边。把它抱回你屋里安置在桌上，去药铺买齐三样药（一套 4 枚），回家碾药、熬药，敷上包扎好，再睡一觉——第二天它就能飞了。治好之后它天天在外头飞，瞧见地上掉的亮闪闪铜钱就叼回来放进你屋里：捡的都是地上掉的钱，不偷不抢。每天 0 到 3 枚，钱直接进你的钱袋；回屋点它、或点桌上的钱堆，就能看见今天叼回了几枚。</p>" +
+          "<p style=\"margin:0 0 5px;padding-left:14px;text-indent:-14px\">- 窗里的人又全查了一遍：所有对话窗、动作特写窗——跟阿渡说话、厕所、理发这些都在内——台上的人物一律按本人现在的乐高造型上场，旧样子不再露脸；对话头像照旧是 2D 立绘画像，没动。</p>" +
+          "<p style=\"margin:0 0 2px;padding-left:14px;text-indent:-14px\">- 清存档更干净了：清除存档时，导入前留下的备份也一并清掉，不再留残档。</p>" +
+          "</div>" +
           "<div style=\"border-top:1.5px dashed rgba(138,106,68,0.55);margin:12px 0 2px;padding-top:10px\">" +
           "<p style=\"margin-bottom:6px\"><b>0.26 版（2026-11-18）</b></p>" +
           "<p style=\"margin:0 0 5px;padding-left:14px;text-indent:-14px\">- 照明弹放进挎包里了：每个人的斜挎包里都常备一枚照明弹（老玩家打开包也一样有），夜里看不清路，打开挎包点它一下，一颗照明弹就从古寺腾空升起，在高空炸开火花，整个小镇随即变成白天，亮堂堂地让你认路、逛镇子。什么时候能点：跟着日落走——天全黑、天气牌转「夜晚」就能点（冬天约 18 点前后、夏天约 20 点前后，以当天天气牌为准）；天还没黑透时点它，会合上包把原因说清，不再是点了没反应。</p>" +
@@ -29224,7 +29231,7 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
               return;
             }
             clearTimeout(armT);
-            try { localStorage.removeItem("templeDailySaveV51"); localStorage.removeItem("templeFarm94"); localStorage.removeItem("templeWxUmbrellaV68"); localStorage.removeItem("templeSvStart91"); localStorage.setItem("templeFreshV58", "1"); } catch (e) {} // 0.18：清除要真清（同 scYes 处）
+            try { localStorage.removeItem("templeDailySaveV51"); localStorage.removeItem("templeFarm94"); localStorage.removeItem("templeWxUmbrellaV68"); localStorage.removeItem("templeSvStart91"); localStorage.removeItem("templeBackupV18"); localStorage.setItem("templeFreshV58", "1"); } catch (e) {} // 0.18：清除要真清（同 scYes 处）
             location.reload();
           });
         }
@@ -40959,6 +40966,398 @@ body.tsStart.tsArt117 #startBtn.tsPressing,body.tsStart.tsArt117 #startBtn:activ
           return { ver: (typeof GAME_VERSION !== "undefined" ? GAME_VERSION : "?"), total: list.length, legoHead: head, legoBody: body, oldBody: old.length, oldSample: old.slice(0, 6), stage: st, pipCam: "front34" };
         }; } catch (e) {}
       })();
+
+      /* ================= 0.30 · 动画窗主角造型收口（老板四报：厕所小窗里的人还是旧绿衣旧样子） =================
+         前几轮（226/227/228/241）全在补头和身体几何，衣色与发带从来没人管过——这次查到
+         定义层，三处病根：① 换装表「青布常服」还写着 v96 改版前的旧青绿（0x46686b），
+         stApplySets 每开一窗都拿它给台上替身 repaint，窗里永远是那件旧绿衣（本版已把
+         换装表默认色改回与主角本体一致的湖青 0x497e78，见 OUTFITS 首项）；② 建台默认
+         替身还是旧参数——旧绿衣 + 发髻 + 1.12（本版 stBuildToon / rpBuildToon 已按主角
+         现行造型建：湖青衫 + 高马尾 + 朱红发带）；③ 主角的朱红发带挂在头组里，历次换头
+         （228/241 清头）连它一起删、新头不补，窗里主角额前那圈红带就这么丢了。
+         本段是钉在渲染路径上的最后一道对齐（不靠巡检运气）：包住 stToonFrame /
+         rpToonFrame，每帧在内层换头换身跑完、画面画出之前，对台上「你」再对齐一遍——
+         选角不是玩家本人的当场按本人重建、衣色按当前穿戴 repaint、头上没朱红发带的
+         当场补上（带 hb230 标记，不重复添）；节流 500ms 一次，防每帧重建贴图。
+         主场景主角本人同法补发带（2.5 秒巡检，只补发带这一件小事）。 */
+      (function heroLook230() {
+        function hasBand230(P) {
+          var f = false;
+          try { P.head && P.head.traverse(function (o) { if (o.userData && o.userData.hb230) f = true; }); } catch (e) {}
+          return f;
+        }
+        function addBand230(P) {
+          try {
+            if (!P || !P.head || !P.makeOpts || !P.makeOpts.headband || hasBand230(P)) return;
+            var hbM = std({ color: P.makeOpts.headband, roughness: 0.85 });
+            var hb = mesh(new THREE.TorusGeometry(0.345, 0.042, 8, 18), hbM, 0, 0.44, -0.02, P.head, false); hb.rotation.x = Math.PI / 2 - 0.15; hb.userData.hb230 = true;
+            var kn = mesh(sph(0.055, 8), hbM, 0, 0.40, -0.365, P.head, false); kn.userData.hb230 = true;
+            [-0.05, 0.05].forEach(function (hx) { var t = mesh(box(0.045, 0.22, 0.02), hbM, hx, 0.26, -0.375, P.head, false); t.rotation.x = 0.15; t.userData.hb230 = true; });
+          } catch (e) {}
+        }
+        var lastAlign230 = 0;
+        function alignStageP230() {
+          try {
+            var now = 0; try { now = performance.now(); } catch (e) {}
+            if (now && now - lastAlign230 < 500) return;
+            lastAlign230 = now;
+            if (typeof stToon === "undefined" || !stToon || !stToon.P) return;
+            if (stToon.recast && stToon.cast_P !== player) { try { stToon.recast("P", player); } catch (e) {} }
+            try { applyOutfit(stToon.P); } catch (e) {}
+            addBand230(stToon.P);
+          } catch (e) {}
+        }
+        var lastRpAlign230 = 0;
+        function alignRpP230() {
+          try {
+            var now = 0; try { now = performance.now(); } catch (e) {}
+            if (now && now - lastRpAlign230 < 500) return;
+            lastRpAlign230 = now;
+            if (typeof rpToon === "undefined" || !rpToon || !rpToon.P) return;
+            try { applyOutfit(rpToon.P); } catch (e) {}
+            addBand230(rpToon.P);
+          } catch (e) {}
+        }
+        try {
+          var _stF230 = stToonFrame;
+          stToonFrame = function () { var r = _stF230.apply(this, arguments); alignStageP230(); return r; };
+        } catch (e) {}
+        try {
+          var _rpF230 = rpToonFrame;
+          rpToonFrame = function () { var r = _rpF230.apply(this, arguments); alignRpP230(); return r; };
+        } catch (e) {}
+        setInterval(function () { try { addBand230(player); } catch (e) {} }, 2500);
+        try { if (window.__templeDebug) window.__templeDebug.pipLook230 = function () {
+          var P = (typeof stToon !== "undefined" && stToon) ? stToon.P : null;
+          function headCyl(X) { var f = false; try { X && X.head && X.head.traverse(function (ob) { if (!f && ob.isMesh && ob.geometry && ob.geometry.type === "CylinderGeometry" && Math.abs((ob.geometry.parameters.radiusTop || 0) - 0.325) < 0.02) f = true; }); } catch (e) {} return f; }
+          function bodyBox(X) { var f = false; try { X && X.torso && X.torso.children.forEach(function (c) { if (c.isMesh && c.userData && c.userData.b241) f = true; }); } catch (e) {} return f; }
+          var plain = null; try { plain = OUTFITS[0].top; } catch (e) {}
+          return { ver: (typeof GAME_VERSION !== "undefined" ? GAME_VERSION : "?"), castIsPlayer: (typeof stToon !== "undefined" && stToon) ? stToon.cast_P === player : null, stageTop: P && P.makeOpts ? P.makeOpts.top : null, stageHair: P && P.makeOpts ? P.makeOpts.hair : null, stageBand: P ? hasBand230(P) : null, stageHead: P ? headCyl(P) : null, stageBody: P ? bodyBox(P) : null, plainTop: plain, playerTop: (typeof player !== "undefined" && player.makeOpts) ? player.makeOpts.top : null, playerBand: (typeof player !== "undefined") ? hasBand230(player) : null, wear: (typeof curWear !== "undefined") ? curWear.outfit : null };
+        }; } catch (e) {}
+      })();
+
+/* ================= 0.31 · 黑乌鸦 + 回春堂药铺 + 特写窗选角收口（老板亲令） =================
+受伤的黑乌鸦（按设计稿，地点取庭院边）+ 集市边上的药铺「回春堂」：
+① 触发：每天掷一次机会，白天在寺庙庭院边（13.8,-9.8）出现一只受伤的黑乌鸦
+（右翅耷拉、偶尔发抖），只触发一次；当天没理它，它还留在原地等。
+② 治疗六步，一步不少：点它只给一个「抱起」钮 → 抱着回主角中屋（我的家），
+进屋自动安置在桌上（不跟出门、不占包）→ 去药铺买齐跌打药膏（进包）+
+草药 + 干净布条（备在 D.crow31 里）→ 回家点桌上的乌鸦「配药」：碾药、
+熬药两段特写（crowgrind / crowbrew）→「敷药包扎」一段特写（crowband），
+翅膀当场缠上白布条 → 睡一觉（盯 v95rest.sleepDay 变化），天亮它就好了：
+盘旋落在自家房梁上，从此是伙伴。进度全程记在 D.crow31，随主存档走，
+中途停下接着做，不从头来。
+③ 伙伴日常：每天结算一次（settleDay 防重复），随机叼回 0–3 枚铜钱（上限 3），
+钱直接 addCoins 进钱袋；屋里桌上摆一小堆铜钱（叼回 >0 才有），回屋点
+房梁上的乌鸦能看「今天叼回 X 枚」——文案写明是捡地上掉的钱，不偷人钱。
+乌鸦是飞的：人在外头它绕着人盘旋，人在自家屋里它落房梁，不占跟班位。
+④ 药铺：集市北头边上（15.5, 29.0，农贸市场与卖香摊之间），六样药按设计稿
+定价——跌打药膏 2、草药 1、干净布条 1（治乌鸦一套 4 枚）；消炎药 2、
+止痛药 1、止血药 2。四样成药进斜挎包（BAG_DEFS 登记），开包点吃回力气：
+跌打药膏 +20（与鲜果同口径，不另立血条）、消炎药 +15、止痛药 +10、
+止血药 +15，打架受了伤买来就能用。
+0.30 只钉了主角 P；本版把同一道几何对账（0.325 圆柱头 +
+b241 方身）钉到故事舞台的 Q、R 两角上：包住 stToonFrame，每帧（450ms 节流）
+验一遍——哪位台上人物几何不对，当场清选角缓存、按本人重新选角（recast 的
+226/227/241 改造链照常接手）。「与阿渡说话」（q2talk，Q=阿渡本人）、问八卦、
+理发、升堂、画舫这些带 Q/R 的窗一并覆盖，不再逐窗打补丁；对话头像仍是 2D
+立绘，本段不碰。厕所窗（P 独角）由 0.30 的对齐继续管，本版核实其三处修法
+（换装表湖青 0x497e78 / 建台替身按主角造型 / 每帧对齐补发带）都还在。
+求亲重复扣 30（已修：点过禁用、拜堂才扣）、包厢站位穿墙
+（已修：站位移出碰撞盒）、三套房门洞净宽 0.47 米（已修：门洞 1.5 米）、
+喝茶吃鱼汤暗回 16（已修：eatNext18 明码标价）、雨穿屋顶（已修 v148：
+有顶雨雪停在门外）、抓贼标记滞留（已修：收场/超时即撤）——六项代码留痕
+都在，本版不动；唯清存档残留还漏了 templeBackupV18，三处清除已补上。 */
+(function crowMed31() {
+/* ---------- 存档状态 ---------- */
+function CRW() {
+if (!D.crow31 || typeof D.crow31!== "object") D.crow31 = { stage: "none", rollDay: "", cao: 0, bu: 0, sleepMark: "", settleDay: "", todayCoins: 0};
+var c = D.crow31;
+if (typeof c.stage!== "string") c.stage = "none";
+if (typeof c.cao!== "number" ||!(c.cao >= 0)) c.cao = 0;
+if (typeof c.bu!== "number" ||!(c.bu >= 0)) c.bu = 0;
+if (typeof c.todayCoins!== "number" ||!(c.todayCoins >= 0)) c.todayCoins = 0;
+if (typeof c.rollDay!== "string") c.rollDay = "";
+if (typeof c.settleDay!== "string") c.settleDay = "";
+if (typeof c.sleepMark!== "string") c.sleepMark = "";
+return c;
+}
+function today31() { try { return dayStr(new Date());} catch (e) { var d = new Date(); return d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();}}
+function sleepDay31() { try { var v = (window.__templeDebug && window.__templeDebug.v95rest)? window.__templeDebug.v95rest(): null; return (v && typeof v.sleepDay === "string")? v.sleepDay: null;} catch (e) { return null;}}
+/* ---------- 药品登记进斜挎包（吃下回力气，与吃食同一条路） ---------- */
+try {
+BAG_DEFS.diedao = { name: "跌打药膏", stam: 20};
+BAG_DEFS.xiaoyan = { name: "消炎药", stam: 15};
+BAG_DEFS.zhitong = { name: "止痛药", stam: 10};
+BAG_DEFS.zhixue = { name: "止血药", stam: 15};
+} catch (e) {}
+/* ---------- 乌鸦本体（黑羽、橙黑喙；右翅可耷拉、可缠布条、能扇动） ---------- */
+function buildCrow31() {
+var g = new THREE.Group();
+var black = std({ color: 0x1e2026, roughness: 0.92});
+var black2 = std({ color: 0x2b2e35, roughness: 0.85});
+var body = mesh(sph(0.16, 12), black, 0, 0, 0, g); body.scale.set(1, 0.92, 1.45);
+mesh(sph(0.095, 10), black2, 0, 0.08, 0.20, g, false); // 头
+var beak = mesh(new THREE.ConeGeometry(0.030, 0.11, 8), std({ color: 0x43403a, roughness: 0.5}), 0, 0.07, 0.315, g, false); beak.rotation.x = Math.PI / 2;
+[-1, 1].forEach(function (s) { mesh(sph(0.017, 6), std({ color: 0xf5efdf, roughness: 0.3}), s * 0.052, 0.10, 0.262, g, false);}); // 眼睛
+var tail = mesh(box(0.10, 0.02, 0.24), black, 0, 0.02, -0.27, g, false); tail.rotation.x = 0.38;
+function wing(s) { var p = new THREE.Group(); p.position.set(s * 0.09, 0.055, -0.02); mesh(box(0.24, 0.025, 0.30), black2, s * 0.12, 0, 0, p, false); g.add(p); return p;}
+g.userData.wingL = wing(-1); g.userData.wingR = wing(1);
+var bd = mesh(box(0.14, 0.05, 0.24), std({ color: 0xf2ead8, roughness: 0.95}), 0.12, 0.028, 0, g.userData.wingR, false); bd.visible = false; g.userData.bandage = bd; // 白布条缠在右翅上，包扎后才亮
+[-1, 1].forEach(function (s) { mesh(cyl(0.008, 0.008, 0.10, 5), std({ color: 0x5a5348, roughness: 0.8}), s * 0.05, -0.155, 0.03, g, false);}); // 细腿
+return g;
+}
+var crowG31 = buildCrow31();
+crowG31.scale.setScalar(1.3); crowG31.visible = false; worldOut.add(crowG31);
+var CROW_SPOT31 = { x: 13.8, z: -9.8}; // 庭院东边沿
+var CROW_TABLE31 = { x: -19.0, y: 1.07, z: 32.6}; // 主角中屋桌上（桌心 -19.0,32.6、桌面高约 0.87）
+/* ---------- 自家房梁 + 桌上钱堆 ---------- */
+try { mesh(box(6.8, 0.16, 0.2), M.woodDark, -19.7, 2.42, 32.6, worldOut);} catch (e) {} // 房梁：乌鸦治好后落在这儿
+var pile31 = new THREE.Group(); pile31.position.set(-19.52, 0.875, 32.42); pile31.visible = false; worldOut.add(pile31);
+for (var pi31 = 0; pi31 < 7; pi31++) mesh(cyl(0.055, 0.055, 0.018, 10), M.gold, (pi31 % 3 - 1) * 0.075, 0.012 + Math.floor(pi31 / 3) * 0.02, (pi31 % 2) * 0.06 - 0.03, pile31, false);
+/* ---------- 药铺（回春堂） ---------- */
+var medKeeper31 = null;
+try {
+var medG31 = stallBase({ x: 15.5, z: 29.0, ry: -Math.PI / 2, name: "药铺", bannerColor: "#3f5a46", awning: "#46604c"});
+(function medGoods31(g) {
+var cols = [0x7fb6c9, 0xc94f3d, 0x5d9a52, 0xe0a83c, 0x8a6a34, 0x51707c];
+for (var i = 0; i < 6; i++) { mesh(cyl(0.055, 0.065, 0.24, 8), std({ color: cols[i], roughness: 0.35}), -1.5 + i * 0.6, 1.22, 0.95, g, false); mesh(cyl(0.03, 0.03, 0.06, 6), M.woodDark, -1.5 + i * 0.6, 1.37, 0.95, g, false);} // 柜台一排药瓶
+for (var j = 0; j < 5; j++) mesh(cyl(0.09, 0.10, 0.20, 9), std({ color: 0xd8cfb8, roughness: 0.6}), -1.2 + j * 0.6, 1.66, -1.25, g, false); // 货架药罐
+var roll31 = mesh(cyl(0.09, 0.09, 0.16, 10), std({ color: 0xf2ead8, roughness: 0.9}), 1.15, 1.16, 0.95, g, false); roll31.rotation.z = Math.PI / 2; // 布条卷
+mesh(cyl(0.16, 0.13, 0.09, 10), M.iron, 0.55, 1.13, 0.95, g, false); // 药碾
+})(medG31);
+try { standSign("回春堂药铺", 12.85, 25.4, Math.PI / 2, { small: true});} catch (e) {}
+medKeeper31 = makePerson({ top: 0x46584c, bottom: 0x39424a, sash: 0x8a6a34, hair: "bun", scale: 1.08, build: "normal", apron: 0xd8d2c4});
+medKeeper31.g.position.set(17.1, 0, 29.0); medKeeper31.g.rotation.y = -Math.PI / 2; worldOut.add(medKeeper31.g);
+try { addFolk(medKeeper31);} catch (e) {}
+try { addLabel(medKeeper31, "药铺掌柜", "#7a9a6a");} catch (e) {}
+try { NPC_REF["vendor:药铺"] = medKeeper31;} catch (e) {}
+} catch (e) { console.warn("0.31 药铺搭建", e);}
+var MED31 = {
+diedao: { name: "跌打药膏", price: 2, bag: true, desc: "打斗跌伤吃下回 20 力气 · 治乌鸦也要它"},
+caoyao: { name: "草药", price: 1, bag: false, desc: "治乌鸦的药引 · 配药时碾进药膏里"},
+butiao: { name: "干净布条", price: 1, bag: false, desc: "给乌鸦包扎伤口用"},
+xiaoyan: { name: "消炎药", price: 2, bag: true, desc: "吃下回 15 力气"},
+zhitong: { name: "止痛药", price: 1, bag: true, desc: "吃下回 10 力气"},
+zhixue: { name: "止血药", price: 2, bag: true, desc: "吃下回 15 力气"}
+};
+function openPharmacy31() {
+var c = CRW();
+var rows = "<br />· 跌打药膏 2 枚（包里 " + ((D.bag && D.bag.diedao) || 0) + "）· 回 20 力气，治乌鸦也要它" +
+"<br />· 草药 1 枚（备着 " + c.cao + "）· 治乌鸦的药引" +
+"<br />· 干净布条 1 枚（备着 " + c.bu + "）· 给乌鸦包扎用" +
+"<br />· 消炎药 2 枚（包里 " + ((D.bag && D.bag.xiaoyan) || 0) + "）· 回 15 力气" +
+"<br />· 止痛药 1 枚（包里 " + ((D.bag && D.bag.zhitong) || 0) + "）· 回 10 力气" +
+"<br />· 止血药 2 枚（包里 " + ((D.bag && D.bag.zhixue) || 0) + "）· 回 15 力气" +
+"<br />治乌鸦一套：跌打药膏 + 草药 + 干净布条，一共 4 枚";
+var btns = [];
+["diedao", "caoyao", "butiao", "xiaoyan", "zhitong", "zhixue"].forEach(function (k) { (function (kk) { btns.push({ txt: MED31[kk].name + " " + MED31[kk].price + " 枚", fn: function () { buyMed31(kk);}});})(k);});
+btns.push({ txt: "先不买", alt: true, fn: function () { closeCreditCard();}});
+openCreditCard("回春堂药铺", "掌柜的把药匣子一格格拉开 · 你有 " + coins + " 枚功德钱" + rows, "", btns);
+}
+function buyMed31(k) {
+var d = MED31[k]; if (!d) return;
+if (d.bag &&!bagTryBuy(k)) return;
+if (!payOrWarn(d.price, d.name)) return;
+if (d.bag) { bagAdd(k, true); toast(d.name + "收进斜挎包啦 · " + d.desc, 2200);}
+else { var c = CRW(); if (k === "caoyao") c.cao++; else if (k === "butiao") c.bu++; saveGame(); toast(d.name + "备下啦 · " + d.desc, 2200);}
+setAct("donate", 0.8); sndPop();
+try { showActPip("买" + d.name, 3.4, { story: "buy", npc: medKeeper31});} catch (e) {}
+closeCreditCard(); openPharmacy31();
+}
+try { addTarget({ mode: "out", x: 15.5, z: 29.0, sx: 12.8, sz: 29.0, face: Math.PI / 2, r: 2.6, label: "回春堂药铺", sub: "买药治伤 · 跌打药膏 2 枚 · 草药 1 枚 · 布条 1 枚", run: function () { openPharmacy31();}});} catch (e) {}
+        /* ---------- 治疗三段特写（与浇菜、劈柴同一套舞台：桌边碾药、熬药、包扎） ---------- */
+        try {
+          STORY_DEFS.crowgrind = { sets: ["table"], segs: [ /* 碾药：走到桌边 → 扶着药碾来回碾 → 把药粉拢起来 → 再碾细些 → 点头收工 */
+            { start: 0, end: 1.0, apply: function (T, P, Q, R, k) { tnWalk(P, 1.9, 1.2, 1.15, -0.3, k); } },
+            { start: 1.0, end: 2.4, act: "serve", apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } },
+            { start: 2.4, end: 3.6, act: "donate", apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } },
+            { start: 3.6, end: 5.4, act: "serve", apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } },
+            { start: 5.4, end: 6.2, bow: true, apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } }
+          ] };
+          STORY_DEFS.crowbrew = { sets: ["table"], tableProp: "bowl", segs: [ /* 熬药：走到桌边 → 守着药碗慢慢搅 → 撒入草药 → 熬到稠 → 捧碗点头 */
+            { start: 0, end: 1.0, apply: function (T, P, Q, R, k) { tnWalk(P, 1.9, 1.2, 1.15, -0.3, k); } },
+            { start: 1.0, end: 3.2, act: "serve", apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } },
+            { start: 3.2, end: 4.4, act: "donate", apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } },
+            { start: 4.4, end: 6.2, act: "serve", apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } },
+            { start: 6.2, end: 7.0, bow: true, apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } }
+          ] };
+          STORY_DEFS.crowband = { sets: ["table"], tableProp: "bowl", segs: [ /* 敷药包扎：走到桌边 → 把药膏敷上翅膀 → 一圈圈缠布条 → 系好 → 轻轻摸摸它的头 */
+            { start: 0, end: 1.0, apply: function (T, P, Q, R, k) { tnWalk(P, 1.9, 1.2, 1.15, -0.3, k); } },
+            { start: 1.0, end: 2.8, act: "serve", apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } },
+            { start: 2.8, end: 4.8, act: "donate", apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } },
+            { start: 4.8, end: 5.8, act: "serve", apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } },
+            { start: 5.8, end: 7.0, bow: true, apply: function (T, P) { tnStand(P, 1.15, -0.3, -Math.PI / 2); } }
+          ] };
+        } catch (e) {}
+        var stageCrow31 = null; // 特写舞台桌上的乌鸦替身：只在三段治乌鸦的故事里亮
+        function attachStageCrow31() {
+          try {
+            if (stageCrow31 || typeof stToon === "undefined" || !stToon || !stToon.sets || !stToon.sets.table) return;
+            stageCrow31 = buildCrow31(); stageCrow31.scale.setScalar(1.3); stageCrow31.position.set(-0.32, 0.87, -0.02); stageCrow31.rotation.y = -0.8; stageCrow31.visible = false;
+            if (stageCrow31.userData.wingR) stageCrow31.userData.wingR.rotation.z = -0.78; // 台上这只也是伤翅
+            stToon.sets.table.add(stageCrow31);
+          } catch (e) {}
+        }
+        /* ---------- 互动目标（一块动态牌，跟着乌鸦的阶段走，与伙伴说话牌同法） ---------- */
+        var crowTarget31 = addTarget({ mode: "out", x: 300, z: 300, sx: 300, sz: 300, r: 2.4, label: "黑乌鸦", sub: "", run: function () { crowTargetRun31(); } });
+        function crowTargetRun31() {
+          var c = CRW();
+          if (c.stage === "wild") crowPickupCard31();
+          else if (c.stage === "home" || c.stage === "brewed" || c.stage === "bandaged") crowHomeCard31();
+          else if (c.stage === "friend") crowFriendCard31();
+        }
+        function crowPickupCard31() {
+          openCreditCard("受伤的黑乌鸦", "寺庙庭院边 · 草丛里",
+            "一只黑乌鸦瘫在草丛边，翅膀耷拉着，见了你也不躲，只是轻轻叫了一声——伤得不轻，得抱回去慢慢治。",
+            [{ txt: "抱起", fn: function () { var c = CRW(); if (c.stage !== "wild") { closeCreditCard(); return; } c.stage = "carried"; saveGame(); closeCreditCard(); try { sndPop(); } catch (e) {} toast("你把黑乌鸦轻轻抱起来 · 先带回你的屋里，安置在桌上", 3200); } }]);
+        }
+        function crowHomeCard31() {
+          var c = CRW(); var gao = (D.bag && D.bag.diedao) || 0;
+          if (c.stage === "home") {
+            var miss = [];
+            if (gao < 1) miss.push("跌打药膏（药铺 2 枚）");
+            if (c.cao < 1) miss.push("草药（药铺 1 枚）");
+            var body = "黑乌鸦在桌上缩着，受伤的翅膀耷拉着，看着怪可怜的。<br />治它要三样药：跌打药膏、草药、干净布条——集市北头边上的回春堂药铺都有，一套 4 枚。<br />备下了没有：跌打药膏 " + (gao > 0 ? "有" : "缺") + " · 草药 " + (c.cao > 0 ? "有" : "缺") + " · 干净布条 " + (c.bu > 0 ? "有" : "缺");
+            var btns = [];
+            if (gao >= 1 && c.cao >= 1) btns.push({ txt: "配药 · 先碾药，再熬药", fn: function () { doBrew31(); } });
+            else btns.push({ txt: "还缺：" + miss.join("、"), alt: true, fn: function () { closeCreditCard(); toast("药铺在集市北头边上 · 回春堂药铺，掌柜的就在摊后头", 3000); } });
+            btns.push({ txt: "先让它歇着", alt: true, fn: function () { closeCreditCard(); } });
+            openCreditCard("桌上的黑乌鸦", "你的屋里 · 桌上", body, btns);
+          } else if (c.stage === "brewed") {
+            openCreditCard("桌上的黑乌鸦", "药熬好了", "药膏熬得稠稠的，趁热敷到它翅膀上，再用干净布条包好。<br />干净布条：备着 " + c.bu + " 条",
+              [{ txt: c.bu >= 1 ? "敷药包扎" : "还缺干净布条（药铺 1 枚）", fn: function () { if (CRW().bu >= 1) doBand31(); else { closeCreditCard(); toast("去集市北头边上的回春堂药铺买条干净布条 · 1 枚", 2800); } } },
+               { txt: "等会儿再包", alt: true, fn: function () { closeCreditCard(); } }]);
+          } else if (c.stage === "bandaged") {
+            openCreditCard("桌上的黑乌鸦", "包扎好了", "翅膀敷了药、包得严严实实，它已经在桌上睡着了。让它好好歇一晚——你去睡一觉，明早它就能飞了。",
+              [{ txt: "让它歇着", fn: function () { closeCreditCard(); } }]);
+          }
+        }
+        function crowFriendCard31() {
+          var c = CRW();
+          openCreditCard("黑乌鸦", "你的乌鸦伙伴",
+            "它每天在外头飞，瞧见地上掉的亮闪闪铜钱，就叼回来放进你屋里——捡的都是地上掉的钱，不偷人家的。<br />今天它叼回了 <b>" + c.todayCoins + " 枚</b>，已经添进你的钱袋了。",
+            [{ txt: "好样的", fn: function () { closeCreditCard(); } }]);
+        }
+        var crowBusy31 = false;
+        function doBrew31() {
+          if (crowBusy31) return; var c = CRW();
+          if (!((D.bag.diedao || 0) >= 1 && c.cao >= 1)) return;
+          crowBusy31 = true; closeCreditCard();
+          D.bag.diedao--; c.cao--; c.stage = "brewing"; saveGame();
+          try { showActPip("碾药", 6.2, { story: "crowgrind" }); } catch (e) {}
+          setTimeout(function () { try { showActPip("熬药", 7.0, { story: "crowbrew" }); } catch (e) {} }, 6600);
+          setTimeout(function () { var c2 = CRW(); if (c2.stage === "brewing") { c2.stage = "brewed"; saveGame(); } crowBusy31 = false; toast("药熬好啦 · 趁热给乌鸦敷上、用布条包好（点桌上的乌鸦）", 3400); try { sndPop(); } catch (e) {} }, 14000);
+        }
+        function doBand31() {
+          if (crowBusy31) return; var c = CRW();
+          if (c.bu < 1 || c.stage !== "brewed") return;
+          crowBusy31 = true; closeCreditCard();
+          c.bu--; c.stage = "bandaging"; saveGame();
+          try { showActPip("敷药包扎", 7.0, { story: "crowband" }); } catch (e) {}
+          setTimeout(function () { var c2 = CRW(); if (c2.stage === "bandaging") { c2.stage = "bandaged"; c2.sleepMark = sleepDay31() || "__none__"; saveGame(); } crowBusy31 = false; toast("包扎好啦 · 让它在桌上歇一晚——你去睡一觉，明早它就能飞了", 3600); try { sndPop(); } catch (e) {} }, 7400);
+        }
+        function updateCrowTarget31() {
+          var c = CRW(); var T = crowTarget31; var pp = player.g.position;
+          if (c.stage === "wild") { T.x = CROW_SPOT31.x; T.z = CROW_SPOT31.z; T.sx = 12.3; T.sz = CROW_SPOT31.z; T.face = Math.PI / 2; T.label = "受伤的黑乌鸦"; T.sub = "翅膀耷拉着 · 瘫在庭院边"; }
+          else if (c.stage === "home" || c.stage === "brewing" || c.stage === "brewed" || c.stage === "bandaging" || c.stage === "bandaged") { T.x = CROW_TABLE31.x; T.z = CROW_TABLE31.z; T.sx = -17.85; T.sz = CROW_TABLE31.z; T.face = -Math.PI / 2; T.label = "桌上的黑乌鸦"; T.sub = c.stage === "brewed" ? "药熬好了 · 给它敷药包扎" : c.stage === "bandaged" ? "包扎好了 · 睡一觉就好" : "在桌上等着治伤"; }
+          else if (c.stage === "friend" && inside78(HOUSES78.hero, pp.x, pp.z, 0.3)) { T.x = -19.7; T.z = 32.6; T.sx = -18.5; T.sz = 32.6; T.face = -Math.PI / 2; T.label = "黑乌鸦"; T.sub = "今天叼回 " + c.todayCoins + " 枚铜钱"; }
+          else { T.x = 300; T.z = 300; T.sx = 300; T.sz = 300; }
+        }
+        /* ---------- 状态机（400ms 一拍：触发 / 抱回 / 睡后康复 / 每日叼钱结算） ---------- */
+        setInterval(function () {
+          try {
+            if (typeof started === "undefined" || !started) return;
+            var c = CRW(); var today = today31();
+            if ((c.stage === "brewing" || c.stage === "bandaging") && !crowBusy31) { c.stage = (c.stage === "brewing") ? "brewed" : "bandaged"; if (c.stage === "bandaged" && !c.sleepMark) c.sleepMark = sleepDay31() || "__none__"; saveGame(); } // 读档时正卡在动画中途：按已完成落账，不重扣药
+            if (c.stage === "none" && c.rollDay !== today) {
+              c.rollDay = today;
+              if (Math.random() < 0.5) { c.stage = "wild"; var pp0 = player.g.position; if (Math.hypot(pp0.x - CROW_SPOT31.x, pp0.z - CROW_SPOT31.z) < 26) toast("庭院边好像有什么动静……草丛里像是有只鸟儿受了伤", 3000); }
+              saveGame();
+            }
+            if (c.stage === "carried") { var pp = player.g.position; if (inside78(HOUSES78.hero, pp.x, pp.z, 0.2)) { c.stage = "home"; saveGame(); toast("黑乌鸦安置在你屋里的桌上了 · 去集市北头边上的回春堂药铺买齐三样药：跌打药膏、草药、干净布条（一套 4 枚）", 4200); } }
+            if (c.stage === "bandaged") { var sd = sleepDay31(); if (sd && sd !== c.sleepMark) { c.stage = "friend"; c.settleDay = ""; saveGame(); toast("天亮了——桌上扑棱棱一阵响：黑乌鸦的翅膀好了！它绕着屋子盘旋一圈，落在房梁上看着你。从今儿起，它就是你的伙伴了", 4600); try { sndDing(); } catch (e) {} } }
+            if (c.stage === "friend" && c.settleDay !== today) {
+              c.settleDay = today; c.todayCoins = Math.floor(Math.random() * 4); // 0–3 枚，上限 3
+              if (c.todayCoins > 0) { addCoins(c.todayCoins); toast("黑乌鸦一大早飞出去，转眼叼回 " + c.todayCoins + " 枚铜钱——都是它在地上捡的掉钱，已经添进你的钱袋了", 3800); }
+              saveGame();
+            }
+            pile31.visible = (c.stage === "friend" && c.todayCoins > 0);
+            updateCrowTarget31();
+            attachStageCrow31();
+          } catch (e) {}
+        }, 400);
+        /* ---------- 乌鸦动作（逐帧：耷拉 / 抱着 / 桌上 / 盘旋 / 落梁） ---------- */
+        var crowT31 = 0;
+        (function crowMotion31() {
+          requestAnimationFrame(crowMotion31);
+          try {
+            if (!crowG31) return;
+            crowT31 += 0.016;
+            var c = CRW(); var t = crowT31; var pp = player.g.position;
+            var wl = crowG31.userData.wingL, wr = crowG31.userData.wingR;
+            if (crowG31.userData.bandage) crowG31.userData.bandage.visible = (c.stage === "bandaged");
+            if (c.stage === "wild") {
+              crowG31.visible = true;
+              crowG31.position.set(CROW_SPOT31.x, groundHeightAt(CROW_SPOT31.x, CROW_SPOT31.z) + 0.21, CROW_SPOT31.z);
+              crowG31.rotation.set(0, -0.7, Math.sin(t * 7) * 0.012); // 疼得偶尔发抖
+              if (wl) wl.rotation.z = 0.12; if (wr) wr.rotation.z = -0.78; // 右翅耷拉
+            } else if (c.stage === "carried") {
+              crowG31.visible = true;
+              var ry = player.g.rotation.y;
+              crowG31.position.set(pp.x + Math.sin(ry) * 0.34, (pp.y || 0) + 1.02 + Math.sin(t * 2.2) * 0.02, pp.z + Math.cos(ry) * 0.34);
+              crowG31.rotation.set(0, ry, 0);
+              if (wl) wl.rotation.z = 0.12; if (wr) wr.rotation.z = -0.78;
+            } else if (c.stage === "home" || c.stage === "brewing" || c.stage === "brewed" || c.stage === "bandaging" || c.stage === "bandaged") {
+              crowG31.visible = true;
+              crowG31.position.set(CROW_TABLE31.x, CROW_TABLE31.y, CROW_TABLE31.z);
+              crowG31.rotation.set(0, 2.2, 0);
+              if (wl) wl.rotation.z = 0.12; if (wr) wr.rotation.z = (c.stage === "bandaged") ? -0.25 : -0.78;
+            } else if (c.stage === "friend") {
+              crowG31.visible = true;
+              if (inside78(HOUSES78.hero, pp.x, pp.z, 0.3)) { // 人在自家屋里：它落房梁
+                crowG31.position.set(-19.7, 2.70, 32.6);
+                crowG31.rotation.set(0, Math.PI, 0);
+                if (wl) wl.rotation.z = 0.12; if (wr) wr.rotation.z = -0.12;
+              } else { // 在外头：绕着主角盘旋
+                var a = t * 0.55, r = 3.1;
+                crowG31.position.set(pp.x + Math.cos(a) * r, (pp.y || 0) + 2.75 + Math.sin(t * 0.9) * 0.25, pp.z + Math.sin(a) * r);
+                crowG31.rotation.set(0, -a, 0.12);
+                var flap = Math.sin(t * 11) * 0.6;
+                if (wl) wl.rotation.z = 0.15 + flap; if (wr) wr.rotation.z = -0.15 - flap;
+              }
+            } else crowG31.visible = false;
+          } catch (e) {}
+        })();
+        /* ---------- 特写窗 Q/R 选角收口（0.30 钉 P，本版钉 Q、R：几何不对当场重选角） ---------- */
+        function headOk31(X) { var f = false; try { X && X.head && X.head.traverse(function (ob) { if (!f && ob.isMesh && ob.geometry && ob.geometry.type === "CylinderGeometry" && Math.abs((ob.geometry.parameters.radiusTop || 0) - 0.325) < 0.02) f = true; }); } catch (e) {} return f; }
+        function bodyOk31(X) { var f = false; try { X && X.torso && X.torso.children.forEach(function (ch) { if (ch.isMesh && ch.userData && ch.userData.b241) f = true; }); } catch (e) {} return f; }
+        var lastAlign31 = 0;
+        function alignQR31() {
+          try {
+            var now = 0; try { now = performance.now(); } catch (e) {}
+            if (now && now - lastAlign31 < 450) return;
+            lastAlign31 = now;
+            if (typeof stToon === "undefined" || !stToon || !stToon.recast) return;
+            ["Q", "R"].forEach(function (role) {
+              var src = stToon["cast_" + role], X = stToon[role];
+              if (!src || !X || !X.g || !X.g.visible) return;
+              if (headOk31(X) && bodyOk31(X)) return;
+              stToon["cast_" + role] = null; // 清缓存逼 recast 真重建（同人重复开窗的缓存正是旧身残留的藏身处）
+              try { stToon.recast(role, src); } catch (e) {}
+            });
+            if (stageCrow31) { var ck = (typeof stCur !== "undefined") ? stCur : null; stageCrow31.visible = (ck === "crowgrind" || ck === "crowbrew" || ck === "crowband"); }
+          } catch (e) {}
+        }
+        try { var _stF31 = stToonFrame; stToonFrame = function () { var r = _stF31.apply(this, arguments); alignQR31(); return r; }; } catch (e) {}
+        /* ---------- 探针（验收用：乌鸦全流程 + 舞台三人几何） ---------- */
+        try { if (window.__templeDebug) {
+          window.__templeDebug.crow31 = function () { var c = CRW(); return { ver: (typeof GAME_VERSION !== "undefined" ? GAME_VERSION : "?"), stage: c.stage, cao: c.cao, bu: c.bu, todayCoins: c.todayCoins, settleDay: c.settleDay, bagDiedao: (D.bag && D.bag.diedao) || 0, crowVisible: crowG31 ? crowG31.visible : null, crowPos: crowG31 ? [+crowG31.position.x.toFixed(1), +crowG31.position.y.toFixed(1), +crowG31.position.z.toFixed(1)] : null, tx: crowTarget31.x, tz: crowTarget31.z, keeper: !!medKeeper31, pileVisible: pile31.visible }; };
+          window.__templeDebug.crowSpawn31 = function () { var c = CRW(); if (c.stage === "none") { c.stage = "wild"; saveGame(); } return window.__templeDebug.crow31(); }; // 验收专用：不等每日掷机，当场把乌鸦放到庭院边
+          window.__templeDebug.pipQR31 = function () { function st(X) { return X ? { head: headOk31(X), body: bodyOk31(X), vis: !!(X.g && X.g.visible) } : null; } return { P: (typeof stToon !== "undefined" && stToon) ? st(stToon.P) : null, Q: (typeof stToon !== "undefined" && stToon) ? st(stToon.Q) : null, R: (typeof stToon !== "undefined" && stToon) ? st(stToon.R) : null, cur: (typeof stCur !== "undefined" ? stCur : null) }; };
+        } } catch (e) {}
+      })();
+
 
       });
     </script>
